@@ -1,19 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
 import MainPage from "../pages/MainPage";
+import About from "../pages/About";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <MainPage></MainPage>
-      {/* <Route
-        path="/main"
-        element={
-          <PrivateRoute>
-            <MainPage />
-          </PrivateRoute>
-        }
-      /> */}
+      <Route path="/main" element={<MainPage />} />
+      <Route path="/about" element={<About />} />
     </Routes>
   );
 };
