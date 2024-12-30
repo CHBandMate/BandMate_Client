@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Router, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Router, useLocation } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import AppRoutes from "./router/index";
 import { Provider } from "react-redux";
@@ -18,9 +18,9 @@ function App() {
     console.log("hi");
   }, []);
   return (
-    <Router>
+    <BrowserRouter>
       <Layout />
-    </Router>
+    </BrowserRouter>
   );
 }
 
