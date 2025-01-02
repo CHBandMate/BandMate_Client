@@ -44,7 +44,6 @@ blockquote,
 q {
   quotes: none;
 }
-input,
 select,
 textarea,
 button {
@@ -55,6 +54,16 @@ button {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+input {
+  font-size: 100%;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 3px;
+}
+input::placeholder {
+  color: #ccc;
+  font-size: 13px;
 }
 input:checked[type="checkbox"] {
   background-color: transparent;
@@ -89,10 +98,7 @@ input[type="number"] {
 
 html,
 body {
-  font-family: "Pretendard", "Noto Sans Korean", -apple-system,
-    BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo",
-    "Segoe UI", "Roboto", "Helvetica Neue", "Arial, Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: "Pretendard", -apple-system, sans-serif;
   font-size: 16px;
 }
 body,
@@ -101,10 +107,7 @@ select,
 textarea,
 button {
   line-height: 1.5;
-  font-family: "Pretendard", "Noto Sans Korean", -apple-system,
-    BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo",
-    "Segoe UI", "Roboto", "Helvetica Neue", "Arial, Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: "Pretendard", -apple-system, sans-serif;
   color: #111;
 }
 a {
