@@ -6,11 +6,13 @@ import "./assets/scss/reset.scss";
 import "./assets/scss/main.scss";
 import "./assets/scss/mypage.scss";
 import "./assets/scss/detail.scss";
+import Header from "./components/HeaderTitle";
 
 function Layout() {
   // const location = useLocation();
   return (
     <div>
+      <Header />
       <AppRoutes />
     </div>
   );

@@ -12,7 +12,6 @@ function MainPage() {
 
   return (
     <>
-      <Header />
       <div className="main-content">
         <div className="inner">
           <SearchBox />

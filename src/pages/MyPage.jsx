@@ -1,15 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import Header from "../components/HeaderTitle";
 
 function MyPage() {
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate("/profile");
+  };
   return (
     <>
-      <Header />
       <div className="mypage inner">
         <div className="title">
           <h1>마이페이지</h1>
         </div>
         <div className="myp-content">
-          <div className="myp-menu">
+          <div className="myp-menu" onClick={handleNavigation}>
             <p>내 프로필</p>
             <div className="ico">
               <img src="/src/assets/images/icon/arrow.png" alt="" />

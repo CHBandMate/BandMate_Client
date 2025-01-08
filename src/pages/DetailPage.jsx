@@ -1,9 +1,6 @@
-import Header from "../components/HeaderTitle";
-
 function Detail() {
   return (
     <>
-      <Header />
       <div className="detail">
         <div className="inner">
           <div className="detail-header">
