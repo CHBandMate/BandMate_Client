@@ -45,6 +45,14 @@ header {
             background-color: #111;
           }
         }
+        &.home {
+          .img {
+            width: 22px;
+            img {
+              width: 100%;
+            }
+          }
+        }
         &.logout {
           display: flex;
           align-items: center;
@@ -207,6 +215,7 @@ header {
     background-color: #fff;
     // column-gap: 20px;
     justify-content: space-between;
+    cursor: pointer;
     .item-card-img {
       display: flex;
       width: calc((100% - 20px) - 60%);

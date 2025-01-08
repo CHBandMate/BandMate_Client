@@ -1,9 +1,14 @@
 import { useDispatch } from "react-redux";
 import SearchBox from "../components/SearchBox";
 import Header from "../components/HeaderTitle";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
   // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate("/detail");
+  };
 
   return (
     <>
@@ -12,7 +17,7 @@ function MainPage() {
         <div className="inner">
           <SearchBox />
           <div className="band-item-area">
-            <div className="band-item-card">
+            <div className="band-item-card" onClick={handleNavigation}>
               <div className="item-card-img">
                 <p>TEST_Band2</p>
               </div>

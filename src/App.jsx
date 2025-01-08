@@ -4,6 +4,8 @@ import AppRoutes from "./router/index";
 import { Provider } from "react-redux";
 import "./assets/scss/reset.scss";
 import "./assets/scss/main.scss";
+import "./assets/scss/mypage.scss";
+import "./assets/scss/detail.scss";
 
 function Layout() {
   // const location = useLocation();
