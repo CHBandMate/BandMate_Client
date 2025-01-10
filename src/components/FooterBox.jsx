@@ -3,7 +3,7 @@ function FooterBox() {
     <>
       <footer className="footer-wrap">
         <div className="inner">
-          <p>©2025 All rights reserved.</p>
+          <p>©2025. jayden&herry. All rights reserved.</p>
         </div>
       </footer>
     </>
