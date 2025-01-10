@@ -61,7 +61,8 @@ input {
   outline: none;
   border-radius: 3px;
 }
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #ccc;
   font-size: 13px;
 }

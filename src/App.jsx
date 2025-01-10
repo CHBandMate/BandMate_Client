@@ -3,11 +3,13 @@ import { BrowserRouter, Route, Router, useLocation } from "react-router-dom";
 import AppRoutes from "./router/index";
 import { Provider } from "react-redux";
 import Header from "./components/HeaderTitle";
+import FooterBox from "./components/FooterBox";
 import "./assets/scss/reset.scss";
 import "./assets/scss/main.scss";
 import "./assets/scss/mypage.scss";
 import "./assets/scss/detail.scss";
 import "./assets/scss/profile.scss";
+import "./assets/scss/footer.scss";
 
 function Layout() {
   // const location = useLocation();
@@ -15,6 +17,7 @@ function Layout() {
     <div>
       <Header />
       <AppRoutes />
+      <FooterBox />
     </div>
   );
 }

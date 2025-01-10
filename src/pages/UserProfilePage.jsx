@@ -15,7 +15,7 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">닉네임</span>
-              <input type="text" />
+              <input type="text" placeholder="닉네임을 입력하세요." />
             </div>
             <div className="btn-check">
               <button disabled>중복확인</button>
@@ -62,7 +62,10 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">악기</span>
-              <input type="text" />
+              <input
+                type="text"
+                placeholder="보유하고 있는 악기를 입력하세요."
+              />
             </div>
             <div className="btn-add">
               <button>+</button>
@@ -86,7 +89,10 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">이펙터</span>
-              <input type="text" />
+              <input
+                type="text"
+                placeholder="보유하고 있는 이펙터를 입력하세요"
+              />
             </div>
             <div className="btn-add">
               <button>+</button>
@@ -109,15 +115,15 @@ function UserProfilePage() {
 
           <div className="from-group">
             <div className="inp-wrap">
-              <span className="label-name">카카오톡 Id</span>
-              <input type="text" />
+              <span className="label-name">카카오톡 ID</span>
+              <input type="text" placeholder="카카오톡 ID를 입력하세요." />
             </div>
           </div>
 
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">이메일</span>
-              <input type="text" />
+              <input type="text" placeholder="이메일을 입력하세요." />
             </div>
             <div className="btn-check">
               <button>중복확인</button>
@@ -128,7 +134,7 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">합주 가능 지역</span>
-              <input type="text" readOnly />
+              <input type="text" readOnly placeholder="지역을 선택하세요." />
             </div>
             <div className="btn-selec">
               <button>선택</button>
@@ -139,56 +145,59 @@ function UserProfilePage() {
             <div className="inp-wrap">
               <span className="label-name">노출 여부</span>
             </div>
-            <div className="radio-wrap">
-              <input type="radio" id="show-id" />
-              <label htmlFor="show-id">OFF</label>
+            <div className="toggle-wrap">
+              <input type="checkbox" id="show-id" hidden />
+              <label htmlFor="show-id" className="toggle-switch">
+                <span className="toggle-button"></span>
+              </label>
+              <span className="toggle-label"></span>
             </div>
           </div>
 
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">유튜브</span>
-              <input type="text" />
+              <input type="text" placeholder="http://www.youtube.com" />
             </div>
           </div>
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">인스타그램</span>
-              <input type="text" />
+              <input type="text" placeholder="http://www.instagram.com" />
             </div>
           </div>
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">사운드 클라우드</span>
-              <input type="text" />
+              <input type="text" placeholder="http://www.soundcloud.com" />
             </div>
           </div>
 
           <div className="from-group">
-            <div className="inp-wrap">
+            <div className="inp-wrap inp-wrap1">
               <span className="label-name">자기소개</span>
-              <input type="text" />
+              <textarea placeholder="자기소개를 입력하세요."></textarea>
             </div>
           </div>
 
           <div className="from-group">
             <div className="selc-wrap">
               <span className="label-name">선호 장르</span>
-              <button>선택</button>
+              <button className="selc-btn">선택</button>
             </div>
-            <div className="hash-wrap">
-              <div className="hash-tag">
-                <button>
-                  재즈
-                  <span className="ico">삭제</span>
-                </button>
-              </div>
-              <div className="hash-tag">
-                <button>
-                  POP
-                  <span className="ico">삭제</span>
-                </button>
-              </div>
+          </div>
+          <div className="hash-group">
+            <div className="hash-tag">
+              <button>
+                재즈
+                <span className="ico">삭제</span>
+              </button>
+            </div>
+            <div className="hash-tag">
+              <button>
+                POP
+                <span className="ico">삭제</span>
+              </button>
             </div>
           </div>
 
