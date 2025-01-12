@@ -4,7 +4,10 @@ import Header from "../components/HeaderTitle";
 function MyPage() {
   const navigate = useNavigate();
   const handleNavigation = () => {
-    navigate("/profile");
+    navigate("/user");
+  };
+  const handleNavigation2 = () => {
+    navigate("/band");
   };
   return (
     <>
@@ -19,7 +22,7 @@ function MyPage() {
               <img src="/src/assets/images/icon/arrow.png" alt="" />
             </div>
           </div>
-          <div className="myp-menu">
+          <div className="myp-menu" onClick={handleNavigation2}>
             <p>밴드 프로필</p>
             <div className="ico">
               <img src="/src/assets/images/icon/arrow.png" alt="" />

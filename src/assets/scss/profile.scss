@@ -50,9 +50,10 @@
       .label-name {
         min-width: 120px;
         font-size: 18px;
-        text-align: right;
+        text-align: left;
         font-weight: 600;
         color: #444;
+        word-break: keep-all;
       }
       input[type="text"] {
         padding: 5px 18px;
@@ -109,7 +110,7 @@
     .label-name {
       min-width: 120px;
       font-size: 18px;
-      text-align: right;
+      text-align: left;
       font-weight: 600;
       color: #444;
     }
@@ -256,7 +257,7 @@
       min-width: 120px;
       font-size: 18px;
       font-weight: 600;
-      text-align: right;
+      text-align: left;
     }
     .selc-btn {
       width: 80px;
