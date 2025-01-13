@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import Header from "./components/HeaderTitle";
 import FooterBox from "./components/FooterBox";
 import "./assets/scss/reset.scss";
+import "./assets/scss/login.scss";
 import "./assets/scss/main.scss";
 import "./assets/scss/mypage.scss";
 import "./assets/scss/detail.scss";
