@@ -9,6 +9,10 @@ function MyPage() {
   const handleNavigation2 = () => {
     navigate("/band");
   };
+  const handleNavigation3 = () => {
+    navigate("/apply");
+  };
+
   return (
     <>
       <div className="mypage inner">
@@ -28,7 +32,7 @@ function MyPage() {
               <img src="/src/assets/images/icon/arrow.png" alt="" />
             </div>
           </div>
-          <div className="myp-menu">
+          <div className="myp-menu" onClick={handleNavigation3}>
             <p>초대/지원 현황</p>
             <div className="ico">
               <img src="/src/assets/images/icon/arrow.png" alt="" />

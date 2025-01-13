@@ -4,6 +4,8 @@ import MyPage from "../pages/MyPage";
 import Detail from "../pages/DetailPage";
 import UserProfilePage from "../pages/UserProfilePage";
 import BandProfilePage from "../pages/BandProfilePage";
+import ApplyPage from "../pages/ApplyPage";
+import ApplyDetailPage from "../pages/ApplyDetailPage";
 
 const AppRoutes = () => {
   return (
@@ -13,6 +15,8 @@ const AppRoutes = () => {
       <Route path="/detail" element={<Detail />} />
       <Route path="/band" element={<BandProfilePage />} />
       <Route path="/user" element={<UserProfilePage />} />
+      <Route path="/apply" element={<ApplyPage />} />
+      <Route path="/applydetail" element={<ApplyDetailPage />} />
     </Routes>
   );
 };

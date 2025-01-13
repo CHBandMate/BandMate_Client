@@ -29,7 +29,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="gnb-menu">
-          <div className="logo">
+          <div className="logo" onClick={handleMain}>
             <img src="/src/assets/images/logo/logo.png" alt="" />
           </div>
           <ul>

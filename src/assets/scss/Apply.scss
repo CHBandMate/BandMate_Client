@@ -1,0 +1,171 @@
+.Apply-content {
+  padding-top: 40px;
+  .apply-title {
+    font-size: 20px;
+    h2 {
+      text-align: center;
+    }
+  }
+  .filter-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: right;
+    .btn-filter {
+      display: flex;
+      padding: 3px 10px;
+      font-size: 14px;
+      align-items: center;
+      gap: 5px;
+      border-radius: 5px;
+      color: #999;
+      background-color: #f1f1f1;
+      img {
+        width: 16px;
+        height: 16px;
+      }
+      &.active {
+        background-color: #d3eaff;
+        color: #1c539c;
+      }
+    }
+  }
+  .band-item-area {
+    margin-top: 20px;
+    .band-item-card {
+      margin-bottom: 20px;
+      padding: 20px;
+      display: flex;
+      width: 100%;
+      border-radius: 15px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      // column-gap: 20px;
+      justify-content: space-between;
+      cursor: pointer;
+      .item-card-img {
+        display: flex;
+        width: calc((100% - 20px) - 60%);
+        border-radius: 8px;
+        // background-color: #555;
+        align-items: center;
+        justify-content: center;
+        background-image: url("../images/img/basic_bg.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        p {
+          font-weight: 800;
+          font-size: 22px;
+          color: #111;
+        }
+      }
+      .item-box {
+        // border: 1px solid red;
+      }
+      .item-card-txt {
+        display: flex;
+        width: calc((100% - 20px) - 40%);
+        flex-direction: column;
+        row-gap: 10px;
+      }
+      .item-card-user {
+        display: flex;
+        justify-content: space-between;
+        align-items: top;
+        .user-txt {
+          display: flex;
+          column-gap: 20px;
+          align-items: end;
+          .user-name {
+            position: relative;
+            font-weight: 500;
+            font-size: 20px;
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 4px;
+              right: -10px;
+              width: 1px;
+              height: 12px;
+              background-color: #ccc;
+            }
+          }
+          .user-category {
+            color: #555;
+            font-size: 14px;
+          }
+        }
+        .user-bmark {
+          width: 20px;
+          img {
+            width: 100%;
+          }
+        }
+      }
+      .item-card-title {
+        .title {
+          font-size: 26px;
+          font-weight: 700;
+        }
+      }
+      .item-card-skill {
+        display: flex;
+        gap: 5px;
+        .skill-item {
+          padding: 2px 15px;
+          font-size: 12px;
+          border-radius: 15px;
+          color: #1c539c;
+          background-color: #d3eaff;
+        }
+      }
+      .item-card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .inspection {
+          margin-top: 3px;
+          .btn-insp {
+            position: relative;
+            width: 60px;
+            height: 26px;
+            border-radius: 15px;
+            background-color: #f1f1f1;
+            &::after {
+              content: "미열람";
+              position: absolute;
+              top: 3px;
+              left: 12px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #999;
+            }
+            &.active {
+              background-color: #5ea3ff;
+              &::after {
+                content: "열람";
+                left: 50%;
+                color: #fff;
+                transform: translate(-50%, 0);
+              }
+            }
+          }
+        }
+        .item-card-location {
+          padding: 2px 5px;
+          gap: 3px;
+          align-content: center;
+          .location_icon {
+            width: 16px;
+            img {
+              width: 100%;
+            }
+          }
+          p {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
