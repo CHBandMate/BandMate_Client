@@ -6,11 +6,13 @@ import UserProfilePage from "../pages/UserProfilePage";
 import BandProfilePage from "../pages/BandProfilePage";
 import ApplyPage from "../pages/ApplyPage";
 import ApplyDetailPage from "../pages/ApplyDetailPage";
+import Login from "../pages/Login";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/detail" element={<Detail />} />
       <Route path="/band" element={<BandProfilePage />} />
