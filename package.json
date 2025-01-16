@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "node-sass": "^9.0.0",
     "react": "^18.3.1",
