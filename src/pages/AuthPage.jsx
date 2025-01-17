@@ -1,40 +1,35 @@
-import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// http://localhost:3000/auth?identifier=8&code=6228c0a1-bdb0-4298-87f6-b53dba37018d
 function AuthPage() {
-  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  // 현재 URL 로그
+  const PARAMS = new URL(window.location.href).searchParams;
+  console.log(window.location.href);
+  // URL에서 identifier 추출
+  const identifier = PARAMS.get("identifier");
+  // URL에서 code 추출
+  const code = PARAMS.get("code");
 
   useEffect(() => {
-    const authCode = searchParams.get("code");
-    if (authCode) {
-      fetch("http://sungmin999.gonetis.com/oauth2/authorization/kakao", {
-        method: "POST",
-        headers: {
-          "Content-Type": "applycation/json",
-        },
-        body: JSON.stringify({ code: authCode }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            // 인증 성공시 : 토큰 저장및 리다이렉트
-            localStorage.setItem("token", data.token); //JWT 토큰 저장
-            window.location.href = "/detail"; //메인으로 이동
-          } else {
-            alert("로그인 실패");
-          }
-        })
-        .catch((error) => {
-          console.log("로그인 에러", error);
-        });
-    } else {
-      console.error("인증 코드가 전달되지 않았습니다.");
-    }
-  }, [searchParams]);
+    axios
+      .post(
+        `${
+          import.meta.env.VITE_REDIRECT_URL
+        }/auth?identifier=${identifier}&code=${code}`
+      )
+      .then((res) => {
+        console.log("res: ", res.data);
+
+        localStorage.setItem("token", res.data.token);
+        navigate("/loginSuccess");
+      });
+  }, []);
 
   return (
     <>
-      <div>로그인 구현중....</div>
+      <div>로그인 중...</div>
     </>
   );
 }

@@ -1,0 +1,32 @@
+.login {
+  border-bottom: 2px solid #ddd;
+}
+.login .inner .login-wrapper {
+  margin: 0 auto;
+  padding: 20px 60px;
+  display: flex;
+  height: 700px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.login .inner .login-wrapper .login-title {
+  margin-bottom: 100px;
+  font-size: 30px;
+}
+.login .inner .btn-kakao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 76px;
+  border-radius: 12px;
+  font-size: 20px;
+  background-color: #fee500;
+  color: #191919;
+  gap: 15px;
+  cursor: pointer;
+}
+.login .inner .btn-kakao img {
+  width: 26px;
+}/*# sourceMappingURL=login.css.map */
