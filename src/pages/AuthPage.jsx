@@ -13,7 +13,7 @@ function AuthPage() {
 
   useEffect(() => {
     axios
-      .post(`http://sungmin999.gonetis.com/auth/token`, {
+      .post(`/auth/token`, {
         authTempCode,
         identifier,
       })
