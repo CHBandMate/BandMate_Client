@@ -1,31 +1,32 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 // http://localhost:3000/auth?identifier=8&code=6228c0a1-bdb0-4298-87f6-b53dba37018d
 function AuthPage() {
   const navigate = useNavigate();
-  // 현재 URL 로그
-  const PARAMS = new URL(window.location.href).searchParams;
-  console.log(window.location.href);
+  // console.log(window.location.href);
+  const [searchParams] = useSearchParams();
   // URL에서 identifier 추출
-  const identifier = PARAMS.get("identifier");
+  const identifier = searchParams.get("identifier");
   // URL에서 code 추출
-  const code = PARAMS.get("code");
+  const authTempCode = searchParams.get("code");
 
   useEffect(() => {
     axios
-      .post(
-        `${
-          import.meta.env.VITE_REDIRECT_URL
-        }/auth?identifier=${identifier}&code=${code}`
-      )
-      .then((res) => {
-        console.log("res: ", res.data);
+      .post(`http://sungmin999.gonetis.com/auth/token`, {
+        authTempCode,
+        identifier,
+      })
+      .then((response) => {
+        console.log("res: ", response.data);
 
-        localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("token", res.data.token);
         navigate("/loginSuccess");
+      })
+      .catch((error) => {
+        console.log("error", error);
       });
-  }, []);
+  });
 
   return (
     <>
