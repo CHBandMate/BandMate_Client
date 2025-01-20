@@ -5,12 +5,6 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      "/auth/token": {
-        target: "http://sungmin999.gonetis.com",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+    port: 3000,
   },
 });
