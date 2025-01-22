@@ -5,12 +5,14 @@ import { Provider } from "react-redux";
 import Header from "./components/HeaderTitle";
 import FooterBox from "./components/FooterBox";
 import "./assets/scss/reset.scss";
+import "./assets/scss/login.scss";
 import "./assets/scss/main.scss";
 import "./assets/scss/mypage.scss";
 import "./assets/scss/detail.scss";
 import "./assets/scss/profile.scss";
 import "./assets/scss/Apply.scss";
 import "./assets/scss/footer.scss";
+import store from "./redux/store";
 
 function Layout() {
   // const location = useLocation();
@@ -28,9 +30,11 @@ function App() {
     console.log("hi");
   }, []);
   return (
-    <BrowserRouter>
-      <Layout />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    </Provider>
   );
 }
 

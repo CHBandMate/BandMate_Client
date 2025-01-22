@@ -5,6 +5,9 @@ const Header = () => {
   const handleNavigation = () => {
     navigate("/MyPage");
   };
+  const handleLogin = () => {
+    navigate("/login");
+  };
   const handleMain = () => {
     navigate("/");
   };
@@ -13,7 +16,9 @@ const Header = () => {
       <div className="inner">
         <div className="gnb">
           <ul>
-            {/* <li className="login">로그인/회원가입</li> */}
+            <li className="login" onClick={handleLogin}>
+              로그인/회원가입
+            </li>
             <li className="user" onClick={handleNavigation}>
               <div className="img">
                 <img src="/src/assets/images/icon/user-avatar.png" alt="" />

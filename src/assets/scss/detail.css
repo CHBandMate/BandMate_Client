@@ -1,0 +1,139 @@
+.detail input {
+  font-size: 14px;
+}
+.detail .detail-header {
+  padding: 30px 0 20px;
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.detail .detail-header h2 {
+  font-size: 26px;
+}
+.detail .detail-header .profile-box {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+.detail .detail-header .profile-box .profile-img {
+  width: 45px;
+  height: 40px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.detail .detail-header .profile-box .profile-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.detail .detail-middle {
+  padding: 30px 0 40px;
+}
+.detail .detail-middle .info-table {
+  padding-bottom: 30px;
+  border-bottom: 2px solid #ddd;
+}
+.detail .detail-middle .info-table table {
+  width: 100%;
+}
+.detail .detail-middle .info-table table th {
+  padding: 2px 10px 15px;
+  width: 100px;
+  text-align: left;
+  font-size: 14px;
+}
+.detail .detail-middle .info-table table td {
+  padding: 2px 15px 15px;
+  text-align: right;
+  font-size: 14px;
+}
+.detail .detail-middle .info-table table td span b {
+  font-weight: 500;
+  font-size: 11px;
+  color: #999;
+}
+.detail .detail-middle .btn-area {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+.detail .detail-middle .btn-area button {
+  width: 50%;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+.detail .detail-middle .btn-area button.mark-btn {
+  border: 2px solid #111;
+  background-color: #fff;
+  color: #111;
+}
+.detail .detail-middle .btn-area button.mark-btn:hover {
+  border: 2px solid #999;
+  color: #999;
+}
+.detail .detail-middle .btn-area button.apply-btn {
+  background-color: #0056c8;
+  color: #fff;
+}
+.detail .detail-middle .btn-area button.apply-btn:hover {
+  background-color: #4a81cb;
+}
+.detail .detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.detail .detail-content .content-title {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ddd;
+}
+.detail .detail-content .detail-text {
+  min-height: 300px;
+}
+.detail .detail-content .detail-text p {
+  text-align: left;
+}
+.detail .detail-content .btn {
+  padding-top: 20px;
+  border-top: 2px solid #ddd;
+  text-align: right;
+}
+.detail .detail-content .btn button {
+  padding: 4px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #555;
+  border: 1px solid #555;
+  transition: 0.2s ease;
+}
+.detail .detail-content .btn button:hover {
+  border: 1px solid #111;
+  color: #111;
+}
+.detail.Apply-detail .apply-title {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 20px;
+}
+.detail.Apply-detail .apply-detail-content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+}
+.detail.Apply-detail .apply-detail-content .detail-middle .info-table table th.th-width {
+  width: 120px;
+}
+.detail.Apply-detail .apply-detail-content .detail-middle .btn-area button {
+  width: 100%;
+}/*# sourceMappingURL=detail.css.map */

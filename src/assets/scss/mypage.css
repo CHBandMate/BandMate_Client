@@ -1,0 +1,34 @@
+.mypage .title {
+  padding: 20px 0;
+  text-align: center;
+}
+.mypage .title h1 {
+  font-size: 30px;
+}
+.mypage .myp-content {
+  display: flex;
+  flex-direction: column;
+}
+.mypage .myp-content .myp-menu {
+  padding: 40px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #ddd;
+  align-items: center;
+  transition: 0.2s ease;
+}
+.mypage .myp-content .myp-menu p {
+  font-size: 20px;
+}
+.mypage .myp-content .myp-menu .ico {
+  width: 26px;
+}
+.mypage .myp-content .myp-menu .ico img {
+  width: 100%;
+}
+.mypage .myp-content .myp-menu:hover {
+  cursor: pointer;
+}
+.mypage .myp-content .myp-menu:hover p {
+  color: #ccc;
+}/*# sourceMappingURL=mypage.css.map */
