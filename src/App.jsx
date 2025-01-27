@@ -30,11 +30,9 @@ function App() {
     console.log("hi");
   }, []);
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   );
 }
 

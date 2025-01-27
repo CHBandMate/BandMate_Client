@@ -6,5 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    proxy: {
+      "/auth/token": {
+        target: "http://sungmin999.gonetis.com",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 });
