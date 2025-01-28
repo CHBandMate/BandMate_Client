@@ -1,5 +1,7 @@
 function LoginPage() {
-  const KAKAO_AUTH_URL = `http://sungmin999.gonetis.com/oauth2/authorization/kakao`;
+  const KAKAO_AUTH_URL = `${
+    import.meta.env.VITE_REDIRECT_URL
+  }/oauth2/authorization/kakao`;
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;

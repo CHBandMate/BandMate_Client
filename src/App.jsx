@@ -12,7 +12,6 @@ import "./assets/scss/detail.scss";
 import "./assets/scss/profile.scss";
 import "./assets/scss/Apply.scss";
 import "./assets/scss/footer.scss";
-import store from "./redux/store";
 
 function Layout() {
   // const location = useLocation();
