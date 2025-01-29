@@ -1,4 +1,50 @@
+import { useState } from "react";
+import axiosInstance from "../api/axiosInstance";
+
 function UserProfilePage() {
+  // 입력 값 관리
+  const [formState, setFormState] = useState({
+    nickName: "",
+    kakaoId: "",
+    email: "",
+    introduction: "",
+  });
+  const isNickValid = formState.nickName.trim() !== "";
+  const isEmailValid = formState.email.trim() !== "";
+  const [isChecking, setIsChecking] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(null);
+  // 필수 입력 값 관리
+  const isFormValid =
+    formState.nickName.trim() !== "" &&
+    formState.kakaoId.trim() !== "" &&
+    formState.email.trim() !== "" &&
+    formState.introduction.trim() !== "";
+  // 입력 필드 체크
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+  // 중복 닉네임 확인
+  const duplicatedNkCheck = async () => {
+    if (formState.nickName.trim() === "") return;
+    setIsChecking(true);
+    try {
+      const response = await axiosInstance.get(`/user/profile/check-nickname`, {
+        params: { nickname: formState.nickName },
+      });
+      setIsAvailable(response.data.data);
+    } catch (error) {
+      console.error("error", error);
+    }
+    setIsChecking(false);
+  };
+
+  const handleSubmit = () => {
+    if (isFormValid) {
+      console.log("회원 정보 등록");
+    }
+  };
+
   return (
     <div className="inner">
       <div className="profilepage">
@@ -15,10 +61,22 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">닉네임</span>
-              <input type="text" placeholder="닉네임을 입력하세요." />
+              <input
+                type="text"
+                name="nickName"
+                placeholder="닉네임을 입력하세요."
+                onChange={handleChange}
+                value={formState.nickName}
+              />
             </div>
             <div className="btn-check">
-              <button disabled>중복확인</button>
+              <button
+                onClick={duplicatedNkCheck}
+                className={`${isNickValid ? "" : "disabled"}`}
+                disabled={!isNickValid}
+              >
+                중복확인
+              </button>
             </div>
           </div>
           <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
@@ -116,17 +174,34 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">카카오톡 ID</span>
-              <input type="text" placeholder="카카오톡 ID를 입력하세요." />
+              <input
+                type="text"
+                name="kakaoId"
+                placeholder="카카오톡 ID를 입력하세요."
+                onChange={handleChange}
+                value={formState.kakaoId}
+              />
             </div>
           </div>
 
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">이메일</span>
-              <input type="text" placeholder="이메일을 입력하세요." />
+              <input
+                type="text"
+                name="email"
+                placeholder="이메일을 입력하세요."
+                onChange={handleChange}
+                value={formState.email}
+              />
             </div>
             <div className="btn-check">
-              <button>중복확인</button>
+              <button
+                className={`${isEmailValid ? "" : "disabled"}`}
+                disabled={!isEmailValid}
+              >
+                중복확인
+              </button>
             </div>
           </div>
           <span className="error-msg">이미 사용중인 이메일 입니다.</span>
@@ -176,7 +251,12 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap inp-wrap1">
               <span className="label-name">자기소개</span>
-              <textarea placeholder="자기소개를 입력하세요."></textarea>
+              <textarea
+                name="introduction"
+                placeholder="자기소개를 입력하세요."
+                onChange={handleChange}
+                value={formState.introduction}
+              ></textarea>
             </div>
           </div>
 
@@ -202,7 +282,13 @@ function UserProfilePage() {
           </div>
 
           <div className="btn-wrap">
-            <button disabled>등록</button>
+            <button
+              className={`${isFormValid ? "" : "disabled"}`}
+              onClick={handleSubmit}
+              disabled={!isFormValid}
+            >
+              등록
+            </button>
           </div>
         </div>
       </div>

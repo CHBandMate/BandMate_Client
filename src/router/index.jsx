@@ -8,19 +8,55 @@ import ApplyPage from "../pages/ApplyPage";
 import ApplyDetailPage from "../pages/ApplyDetailPage";
 import Login from "../pages/LoginPage";
 import AuthPage from "../pages/AuthPage";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/auth" element={<AuthPage />} />
       <Route path="/" element={<MainPage />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/auth" element={<AuthPage />} />
       <Route path="/mypage" element={<MyPage />} />
-      <Route path="/detail" element={<Detail />} />
-      <Route path="/band" element={<BandProfilePage />} />
-      <Route path="/user" element={<UserProfilePage />} />
-      <Route path="/apply" element={<ApplyPage />} />
-      <Route path="/applydetail" element={<ApplyDetailPage />} />
+      <Route
+        path="/detail"
+        element={
+          <PrivateRoute>
+            <Detail />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/band"
+        element={
+          <PrivateRoute>
+            <BandProfilePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/user"
+        element={
+          <PrivateRoute>
+            <UserProfilePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/apply"
+        element={
+          <PrivateRoute>
+            <ApplyPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/applydetail"
+        element={
+          <PrivateRoute>
+            <ApplyDetailPage />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 };

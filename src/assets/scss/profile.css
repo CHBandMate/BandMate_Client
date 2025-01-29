@@ -74,7 +74,7 @@
   font-size: 14px;
   border-radius: 4px;
 }
-.profilepage .from-group .btn-check button:disabled {
+.profilepage .from-group .btn-check button.disabled {
   background-color: #444;
   background: #e8e8e8;
   color: #b7b7b7;
@@ -278,7 +278,7 @@
   background-color: #5ea3ff;
   color: #fff;
 }
-.profilepage .btn-wrap button:disabled {
+.profilepage .btn-wrap button.disabled {
   background-color: #e8e8e8;
   color: #b7b7b7;
-}/*# sourceMappingURL=profile.css.map */
+}
