@@ -1,22 +1,42 @@
 import { useState } from "react";
+import axiosInstance from "../api/axiosInstance";
 
 function UserProfilePage() {
+  // 입력 값 관리
   const [formState, setFormState] = useState({
     nickName: "",
     kakaoId: "",
     email: "",
     introduction: "",
   });
-
+  const isNickValid = formState.nickName.trim() !== "";
+  const isEmailValid = formState.email.trim() !== "";
+  const [isChecking, setIsChecking] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(null);
+  // 필수 입력 값 관리
   const isFormValid =
     formState.nickName.trim() !== "" &&
     formState.kakaoId.trim() !== "" &&
     formState.email.trim() !== "" &&
     formState.introduction.trim() !== "";
-
+  // 입력 필드 체크
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+  // 중복 닉네임 확인
+  const duplicatedNkCheck = async () => {
+    if (formState.nickName.trim() === "") return;
+    setIsChecking(true);
+    try {
+      const response = await axiosInstance.get(`/user/profile/check-nickname`, {
+        params: { nickname: formState.nickName },
+      });
+      setIsAvailable(response.data.data);
+    } catch (error) {
+      console.error("error", error);
+    }
+    setIsChecking(false);
   };
 
   const handleSubmit = () => {
@@ -50,7 +70,13 @@ function UserProfilePage() {
               />
             </div>
             <div className="btn-check">
-              <button disabled>중복확인</button>
+              <button
+                onClick={duplicatedNkCheck}
+                className={`${isNickValid ? "" : "disabled"}`}
+                disabled={!isNickValid}
+              >
+                중복확인
+              </button>
             </div>
           </div>
           <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
@@ -170,7 +196,12 @@ function UserProfilePage() {
               />
             </div>
             <div className="btn-check">
-              <button>중복확인</button>
+              <button
+                className={`${isEmailValid ? "" : "disabled"}`}
+                disabled={!isEmailValid}
+              >
+                중복확인
+              </button>
             </div>
           </div>
           <span className="error-msg">이미 사용중인 이메일 입니다.</span>
