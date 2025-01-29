@@ -1,4 +1,30 @@
+import { useState } from "react";
+
 function UserProfilePage() {
+  const [formState, setFormState] = useState({
+    nickName: "",
+    kakaoId: "",
+    email: "",
+    introduction: "",
+  });
+
+  const isFormValid =
+    formState.nickName.trim() !== "" &&
+    formState.kakaoId.trim() !== "" &&
+    formState.email.trim() !== "" &&
+    formState.introduction.trim() !== "";
+
+  const handleChage = (e) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    if (isFormValid) {
+      console.log("회원 정보 등록");
+    }
+  };
+
   return (
     <div className="inner">
       <div className="profilepage">
@@ -15,7 +41,11 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">닉네임</span>
-              <input type="text" placeholder="닉네임을 입력하세요." />
+              <input
+                type="text"
+                name="nickName"
+                placeholder="닉네임을 입력하세요."
+              />
             </div>
             <div className="btn-check">
               <button disabled>중복확인</button>
@@ -116,14 +146,22 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">카카오톡 ID</span>
-              <input type="text" placeholder="카카오톡 ID를 입력하세요." />
+              <input
+                type="text"
+                name="kakaoId"
+                placeholder="카카오톡 ID를 입력하세요."
+              />
             </div>
           </div>
 
           <div className="from-group">
             <div className="inp-wrap">
               <span className="label-name">이메일</span>
-              <input type="text" placeholder="이메일을 입력하세요." />
+              <input
+                type="text"
+                name="email"
+                placeholder="이메일을 입력하세요."
+              />
             </div>
             <div className="btn-check">
               <button>중복확인</button>
@@ -176,7 +214,10 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="inp-wrap inp-wrap1">
               <span className="label-name">자기소개</span>
-              <textarea placeholder="자기소개를 입력하세요."></textarea>
+              <textarea
+                name="introduction"
+                placeholder="자기소개를 입력하세요."
+              ></textarea>
             </div>
           </div>
 
@@ -202,7 +243,9 @@ function UserProfilePage() {
           </div>
 
           <div className="btn-wrap">
-            <button disabled>등록</button>
+            <button onClick={handleSubmit} disabled={!isFormValid}>
+              등록
+            </button>
           </div>
         </div>
       </div>
