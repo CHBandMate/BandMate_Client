@@ -70,7 +70,7 @@
         // border: 2px solid #0056c8;
         font-size: 14px;
         border-radius: 4px;
-        &:disabled {
+        &.disabled {
           background-color: #444;
           background: #e8e8e8;
           color: #b7b7b7;
@@ -279,7 +279,7 @@
       text-align: center;
       background-color: #5ea3ff;
       color: #fff;
-      &:disabled {
+      &.disabled {
         background-color: #e8e8e8;
         color: #b7b7b7;
       }

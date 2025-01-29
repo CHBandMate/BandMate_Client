@@ -14,7 +14,7 @@ function UserProfilePage() {
     formState.email.trim() !== "" &&
     formState.introduction.trim() !== "";
 
-  const handleChage = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
@@ -45,6 +45,8 @@ function UserProfilePage() {
                 type="text"
                 name="nickName"
                 placeholder="닉네임을 입력하세요."
+                onChange={handleChange}
+                value={formState.nickName}
               />
             </div>
             <div className="btn-check">
@@ -150,6 +152,8 @@ function UserProfilePage() {
                 type="text"
                 name="kakaoId"
                 placeholder="카카오톡 ID를 입력하세요."
+                onChange={handleChange}
+                value={formState.kakaoId}
               />
             </div>
           </div>
@@ -161,6 +165,8 @@ function UserProfilePage() {
                 type="text"
                 name="email"
                 placeholder="이메일을 입력하세요."
+                onChange={handleChange}
+                value={formState.email}
               />
             </div>
             <div className="btn-check">
@@ -217,6 +223,8 @@ function UserProfilePage() {
               <textarea
                 name="introduction"
                 placeholder="자기소개를 입력하세요."
+                onChange={handleChange}
+                value={formState.introduction}
               ></textarea>
             </div>
           </div>
@@ -243,7 +251,11 @@ function UserProfilePage() {
           </div>
 
           <div className="btn-wrap">
-            <button onClick={handleSubmit} disabled={!isFormValid}>
+            <button
+              className={`${isFormValid ? "" : "disabled"}`}
+              onClick={handleSubmit}
+              disabled={!isFormValid}
+            >
               등록
             </button>
           </div>
