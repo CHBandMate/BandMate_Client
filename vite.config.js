@@ -12,6 +12,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/user": {
+        target: "http://sungmin999.gonetis.com",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });
