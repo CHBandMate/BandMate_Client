@@ -13,6 +13,7 @@ function UserProfilePage() {
   const isEmailValid = formState.email.trim() !== "";
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
+
   // 필수 입력 값 관리
   const isFormValid =
     formState.nickName.trim() !== "" &&
@@ -26,17 +27,24 @@ function UserProfilePage() {
   };
   // 중복 닉네임 확인
   const duplicatedNkCheck = async () => {
-    if (formState.nickName.trim() === "") return;
+    if (!formState.nickName.trim()) return; // 빈 값 체크
     setIsChecking(true);
+
     try {
-      const response = await axiosInstance.get(`/user/profile/check-nickname`, {
+      const token = localStorage.getItem("token");
+      const response = await axiosInstance.get("/user/profile/check-nickname", {
         params: { nickname: formState.nickName },
+        headers: {
+          Authorization: token,
+        },
       });
-      setIsAvailable(response.data.data);
+      console.log("API Response:", response.data); // 응답 확인
+      setIsAvailable(response.data.data); // 데이터 확인 후 상태 업데이트
     } catch (error) {
-      console.error("error", error);
+      console.error("Error checking nickname:", error);
+      setIsAvailable(false); // 에러 발생 시 false 처리
     }
-    setIsChecking(false);
+    console.log("why????");
   };
 
   const handleSubmit = () => {
