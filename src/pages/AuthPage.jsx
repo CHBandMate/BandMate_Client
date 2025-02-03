@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 function AuthPage() {
   const navigate = useNavigate();
-  console.log(window.location.href);
+  // console.log(window.location.href);
   const [searchParams] = useSearchParams();
   // URL에서 identifier 추출
   const identifier = searchParams.get("identifier");
@@ -17,10 +17,10 @@ function AuthPage() {
         identifier,
       })
       .then((response) => {
-        console.log("res: ", response.data);
+        // console.log("res: ", response.data);
         const jwtToken = response.headers.get("authorization");
         localStorage.setItem("token", jwtToken);
-        console.log(jwtToken);
+        // console.log(jwtToken);
         navigate("/user");
       })
       .catch((error) => {

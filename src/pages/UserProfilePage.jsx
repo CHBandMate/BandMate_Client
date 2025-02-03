@@ -29,22 +29,15 @@ function UserProfilePage() {
   const duplicatedNkCheck = async () => {
     if (!formState.nickName.trim()) return; // 빈 값 체크
     setIsChecking(true);
-
     try {
-      const token = localStorage.getItem("token");
       const response = await axiosInstance.get("/user/profile/check-nickname", {
         params: { nickname: formState.nickName },
-        headers: {
-          Authorization: token,
-        },
       });
-      console.log("API Response:", response.data); // 응답 확인
       setIsAvailable(response.data.data); // 데이터 확인 후 상태 업데이트
     } catch (error) {
       console.error("Error checking nickname:", error);
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
-    console.log("why????");
   };
 
   const handleSubmit = () => {
@@ -87,7 +80,12 @@ function UserProfilePage() {
               </button>
             </div>
           </div>
-          <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
+          {isAvailable === false && (
+            <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
+          )}
+          {isAvailable === true && (
+            <span className="success-msg">사용 가능한 닉네임입니다.</span>
+          )}
 
           <div className="checkbox-group">
             <span className="label-name">포지션</span>
