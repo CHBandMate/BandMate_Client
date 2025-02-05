@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../api/axiosInstance";
+import BottomSheet from "../components/BottomSheet";
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -13,7 +14,8 @@ function UserProfilePage() {
   const isEmailValid = formState.email.trim() !== "";
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
-
+  // bottom sheet 반응성
+  const [isVisible, setIsVisible] = useState(false);
   // 필수 입력 값 관리
   const isFormValid =
     formState.nickName.trim() !== "" &&
@@ -218,7 +220,21 @@ function UserProfilePage() {
               <input type="text" readOnly placeholder="지역을 선택하세요." />
             </div>
             <div className="btn-selec">
-              <button>선택</button>
+              <button onClick={() => setIsVisible(true)}>선택</button>
+            </div>
+          </div>
+          <div className="hash-group">
+            <div className="hash-tag">
+              <button>
+                서울시 금천구
+                <span className="ico">삭제</span>
+              </button>
+            </div>
+            <div className="hash-tag">
+              <button>
+                안양시 동안구
+                <span className="ico">삭제</span>
+              </button>
             </div>
           </div>
 
@@ -298,6 +314,10 @@ function UserProfilePage() {
           </div>
         </div>
       </div>
+      <BottomSheet
+        isVisible={isVisible}
+        onClick={() => setIsVisible(false)}
+      ></BottomSheet>
     </div>
   );
 }

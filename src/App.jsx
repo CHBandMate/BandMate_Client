@@ -12,6 +12,7 @@ import "./assets/scss/detail.scss";
 import "./assets/scss/profile.scss";
 import "./assets/scss/Apply.scss";
 import "./assets/scss/footer.scss";
+import "./assets/scss/bottomsheet.scss";
 
 function Layout() {
   // const location = useLocation();
