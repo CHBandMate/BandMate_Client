@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axiosInstance from "../api/axiosInstance";
-import BottomSheet from "../components/BottomSheet";
+import { BottomSheet } from "react-spring-bottom-sheet";
+import "../assets/scss/bottomsheet.scss";
+// import BottomSheet from "../components/BottomSheet";
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -40,6 +42,10 @@ function UserProfilePage() {
       console.error("Error checking nickname:", error);
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
+  };
+  // 바텀시트 닫기
+  const handleClose = () => {
+    setIsVisible(false);
   };
 
   const handleSubmit = () => {
@@ -314,10 +320,66 @@ function UserProfilePage() {
           </div>
         </div>
       </div>
-      <BottomSheet
-        isVisible={isVisible}
-        onClick={() => setIsVisible(false)}
-      ></BottomSheet>
+      {/* <BottomSheet isVisible={isVisible} onClose={handleClose}></BottomSheet> */}
+      <BottomSheet open={isVisible} onDismiss={() => setIsVisible(false)}>
+        <div className="sheet">
+          <div className="bottom-sheet-body">
+            <div className="top-control">
+              <div className="header">
+                <i className="header-bar"></i>
+              </div>
+            </div>
+            <div className="flex-wrap">
+              <div className="top">
+                <p>지역선택</p>
+              </div>
+              <div className="district-wrap">
+                <div className="title">시/도</div>
+                <div className="btn-wrap main-btn">
+                  <button className="active">전체</button>
+                  <button>강원</button>
+                  <button>경기</button>
+                  <button>경남</button>
+                  <button>경북</button>
+                  <button>서울</button>
+                  <button>전남</button>
+                  <button>전북</button>
+                  <button>제주</button>
+                  <button>충남</button>
+                  <button>충남</button>
+                </div>
+              </div>
+              <div className="district-wrap">
+                <div className="title">상세지역</div>
+                <div className="btn-wrap sub-btn">
+                  <button className="active">전체</button>
+                  <button>강남구</button>
+                  <button>강동구</button>
+                  <button>강북구</button>
+                  <button>강서구</button>
+                  <button>관악구</button>
+                  <button>광진구</button>
+                  <button>구로구</button>
+                  <button>금천구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                </div>
+              </div>
+              <div className="bottom">
+                <button onClick={handleClose}>확인</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BottomSheet>
     </div>
   );
 }
