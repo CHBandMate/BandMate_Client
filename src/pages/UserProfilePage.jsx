@@ -364,10 +364,10 @@ function UserProfilePage() {
                   <button>노원구</button>
                 </div>
               </div>
-              <div className="bottom">
-                <button onClick={handleDismiss}>확인</button>
-              </div>
             </div>
+          </div>
+          <div className="bottom">
+            <button onClick={handleDismiss}>확인</button>
           </div>
         </BottomSheet>
       </div>
