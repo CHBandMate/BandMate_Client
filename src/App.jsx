@@ -12,7 +12,8 @@ import "./assets/scss/detail.scss";
 import "./assets/scss/profile.scss";
 import "./assets/scss/Apply.scss";
 import "./assets/scss/footer.scss";
-import "./assets/scss/bottomsheet.scss";
+import "./assets/scss/custombottomsheet.scss";
+import "react-spring-bottom-sheet/dist/style.css";
 
 function Layout() {
   // const location = useLocation();

@@ -9,10 +9,12 @@ import ApplyDetailPage from "../pages/ApplyDetailPage";
 import Login from "../pages/LoginPage";
 import AuthPage from "../pages/AuthPage";
 import PrivateRoute from "./PrivateRoute";
+import Example from "../components/test";
 
 const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/test" element={<Example />}></Route>
       <Route path="/" element={<MainPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/auth" element={<AuthPage />} />

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { BottomSheet } from "react-spring-bottom-sheet";
-import "../assets/scss/bottomsheet.scss";
-// import BottomSheet from "../components/BottomSheet";
+// import "../assets/scss/bottomsheet.scss";
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -17,7 +16,11 @@ function UserProfilePage() {
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
   // bottom sheet 반응성
-  const [isVisible, setIsVisible] = useState(false);
+  const [open, setOpen] = useState(false);
+  // 배경 클릭시 바텀시트 닫기기
+  const handleDismiss = () => {
+    setOpen(false);
+  };
   // 필수 입력 값 관리
   const isFormValid =
     formState.nickName.trim() !== "" &&
@@ -42,10 +45,6 @@ function UserProfilePage() {
       console.error("Error checking nickname:", error);
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
-  };
-  // 바텀시트 닫기
-  const handleClose = () => {
-    setIsVisible(false);
   };
 
   const handleSubmit = () => {
@@ -226,7 +225,7 @@ function UserProfilePage() {
               <input type="text" readOnly placeholder="지역을 선택하세요." />
             </div>
             <div className="btn-selec">
-              <button onClick={() => setIsVisible(true)}>선택</button>
+              <button onClick={() => setOpen(true)}>선택</button>
             </div>
           </div>
           <div className="hash-group">
@@ -319,16 +318,8 @@ function UserProfilePage() {
             </button>
           </div>
         </div>
-      </div>
-      {/* <BottomSheet isVisible={isVisible} onClose={handleClose}></BottomSheet> */}
-      <BottomSheet open={isVisible} onDismiss={() => setIsVisible(false)}>
-        <div className="sheet">
+        <BottomSheet onDismiss={handleDismiss} open={open}>
           <div className="bottom-sheet-body">
-            <div className="top-control">
-              <div className="header">
-                <i className="header-bar"></i>
-              </div>
-            </div>
             <div className="flex-wrap">
               <div className="top">
                 <p>지역선택</p>
@@ -374,12 +365,12 @@ function UserProfilePage() {
                 </div>
               </div>
               <div className="bottom">
-                <button onClick={handleClose}>확인</button>
+                <button onClick={handleDismiss}>확인</button>
               </div>
             </div>
           </div>
-        </div>
-      </BottomSheet>
+        </BottomSheet>
+      </div>
     </div>
   );
 }
