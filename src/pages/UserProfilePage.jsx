@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { BottomSheet } from "react-spring-bottom-sheet";
 // import "../assets/scss/bottomsheet.scss";
@@ -11,13 +11,15 @@ function UserProfilePage() {
     email: "",
     introduction: "",
   });
+  // 지역 데이터
+  const [regions, setRegions] = useState([]);
   const isNickValid = formState.nickName.trim() !== "";
   const isEmailValid = formState.email.trim() !== "";
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
   // bottom sheet 반응성
   const [open, setOpen] = useState(false);
-  // 배경 클릭시 바텀시트 닫기기
+  // 배경 클릭시 바텀시트 닫기
   const handleDismiss = () => {
     setOpen(false);
   };
@@ -40,7 +42,7 @@ function UserProfilePage() {
       const response = await axiosInstance.get("/user/profile/check-nickname", {
         params: { nickname: formState.nickName },
       });
-      setIsAvailable(response.data.data); // 데이터 확인 후 상태 업데이트
+      setIsAvailable(response.data); // 데이터 확인 후 상태 업데이트
     } catch (error) {
       console.error("Error checking nickname:", error);
       setIsAvailable(false); // 에러 발생 시 false 처리
@@ -52,6 +54,20 @@ function UserProfilePage() {
       console.log("회원 정보 등록");
     }
   };
+
+  // 지역선택
+  useEffect(() => {
+    const fetchDistrict = async () => {
+      try {
+        const response = await axiosInstance.get("/profile/metadata/district");
+        setRegions(response.data.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchDistrict();
+  }, []);
+  console.log(regions);
 
   return (
     <div className="inner">
@@ -327,6 +343,11 @@ function UserProfilePage() {
               <div className="district-wrap">
                 <div className="title">시/도</div>
                 <div className="btn-wrap main-btn">
+                  {regions.map((region, index) => (
+                    <button key={region.regionId}>{region.regionName}</button>
+                  ))}
+                </div>
+                {/* <div className="btn-wrap main-btn">
                   <button className="active">전체</button>
                   <button>강원</button>
                   <button>경기</button>
@@ -338,7 +359,7 @@ function UserProfilePage() {
                   <button>제주</button>
                   <button>충남</button>
                   <button>충남</button>
-                </div>
+                </div> */}
               </div>
               <div className="district-wrap">
                 <div className="title">상세지역</div>
