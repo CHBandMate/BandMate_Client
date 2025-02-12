@@ -1,0 +1,67 @@
+:root {
+  --rsbs-max-w: 500px;
+  --rsbs-ml: auto;
+  --rsbs-mr: auto;
+}
+
+.bottom-sheet-body {
+  padding: 20px 60px;
+  max-width: 500px;
+  overflow: hidden;
+  .flex-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 50px;
+    .top {
+      p {
+        font-size: 22px;
+        font-weight: 600;
+      }
+    }
+    .district-wrap {
+      width: 100%;
+      .title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .btn-wrap {
+        margin-top: 20px;
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        button {
+          padding: 10px 0;
+          width: calc(100% / 6);
+          border-radius: 8px;
+          font-weight: 600;
+          color: #444;
+          background-color: #e8e8e8;
+          &.active {
+            background-color: #5ea3ff;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+.bottom {
+  margin-top: 80px;
+  width: 100%;
+  text-align: center;
+  button {
+    padding: 20px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #5ea3ff;
+    color: #fff;
+    &.visible {
+      color: #444;
+      background-color: #e8e8e8;
+    }
+  }
+}

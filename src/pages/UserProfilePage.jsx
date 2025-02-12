@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
+import { BottomSheet } from "react-spring-bottom-sheet";
+// import "../assets/scss/bottomsheet.scss";
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -9,11 +11,18 @@ function UserProfilePage() {
     email: "",
     introduction: "",
   });
+  // 지역 데이터
+  const [regions, setRegions] = useState([]);
   const isNickValid = formState.nickName.trim() !== "";
   const isEmailValid = formState.email.trim() !== "";
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
-
+  // bottom sheet 반응성
+  const [open, setOpen] = useState(false);
+  // 배경 클릭시 바텀시트 닫기
+  const handleDismiss = () => {
+    setOpen(false);
+  };
   // 필수 입력 값 관리
   const isFormValid =
     formState.nickName.trim() !== "" &&
@@ -29,22 +38,15 @@ function UserProfilePage() {
   const duplicatedNkCheck = async () => {
     if (!formState.nickName.trim()) return; // 빈 값 체크
     setIsChecking(true);
-
     try {
-      const token = localStorage.getItem("token");
       const response = await axiosInstance.get("/user/profile/check-nickname", {
         params: { nickname: formState.nickName },
-        headers: {
-          Authorization: token,
-        },
       });
-      console.log("API Response:", response.data); // 응답 확인
-      setIsAvailable(response.data.data); // 데이터 확인 후 상태 업데이트
+      setIsAvailable(response.data); // 데이터 확인 후 상태 업데이트
     } catch (error) {
       console.error("Error checking nickname:", error);
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
-    console.log("why????");
   };
 
   const handleSubmit = () => {
@@ -52,6 +54,20 @@ function UserProfilePage() {
       console.log("회원 정보 등록");
     }
   };
+
+  // 지역선택
+  useEffect(() => {
+    const fetchDistrict = async () => {
+      try {
+        const response = await axiosInstance.get("/profile/metadata/district");
+        setRegions(response.data.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchDistrict();
+  }, []);
+  console.log(regions);
 
   return (
     <div className="inner">
@@ -87,7 +103,12 @@ function UserProfilePage() {
               </button>
             </div>
           </div>
-          <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
+          {isAvailable === false && (
+            <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
+          )}
+          {isAvailable === true && (
+            <span className="success-msg">사용 가능한 닉네임입니다.</span>
+          )}
 
           <div className="checkbox-group">
             <span className="label-name">포지션</span>
@@ -220,7 +241,21 @@ function UserProfilePage() {
               <input type="text" readOnly placeholder="지역을 선택하세요." />
             </div>
             <div className="btn-selec">
-              <button>선택</button>
+              <button onClick={() => setOpen(true)}>선택</button>
+            </div>
+          </div>
+          <div className="hash-group">
+            <div className="hash-tag">
+              <button>
+                서울시 금천구
+                <span className="ico">삭제</span>
+              </button>
+            </div>
+            <div className="hash-tag">
+              <button>
+                안양시 동안구
+                <span className="ico">삭제</span>
+              </button>
             </div>
           </div>
 
@@ -299,6 +334,63 @@ function UserProfilePage() {
             </button>
           </div>
         </div>
+        <BottomSheet onDismiss={handleDismiss} open={open}>
+          <div className="bottom-sheet-body">
+            <div className="flex-wrap">
+              <div className="top">
+                <p>지역선택</p>
+              </div>
+              <div className="district-wrap">
+                <div className="title">시/도</div>
+                <div className="btn-wrap main-btn">
+                  {regions.map((region, index) => (
+                    <button key={region.regionId}>{region.regionName}</button>
+                  ))}
+                </div>
+                {/* <div className="btn-wrap main-btn">
+                  <button className="active">전체</button>
+                  <button>강원</button>
+                  <button>경기</button>
+                  <button>경남</button>
+                  <button>경북</button>
+                  <button>서울</button>
+                  <button>전남</button>
+                  <button>전북</button>
+                  <button>제주</button>
+                  <button>충남</button>
+                  <button>충남</button>
+                </div> */}
+              </div>
+              <div className="district-wrap">
+                <div className="title">상세지역</div>
+                <div className="btn-wrap sub-btn">
+                  <button className="active">전체</button>
+                  <button>강남구</button>
+                  <button>강동구</button>
+                  <button>강북구</button>
+                  <button>강서구</button>
+                  <button>관악구</button>
+                  <button>광진구</button>
+                  <button>구로구</button>
+                  <button>금천구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                  <button>노원구</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bottom">
+            <button onClick={handleDismiss}>확인</button>
+          </div>
+        </BottomSheet>
       </div>
     </div>
   );
