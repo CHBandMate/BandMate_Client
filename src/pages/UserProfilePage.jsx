@@ -11,14 +11,16 @@ function UserProfilePage() {
     email: "",
     introduction: "",
   });
-  // 지역 데이터
-  const [regions, setRegions] = useState([]);
   const isNickValid = formState.nickName.trim() !== "";
   const isEmailValid = formState.email.trim() !== "";
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
   // bottom sheet 반응성
   const [open, setOpen] = useState(false);
+  // 지역 데이터
+  const [regions, setRegions] = useState([]);
+  const [selectedRegionId, setSelectedRegionId] = useState(null);
+  const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   // 배경 클릭시 바텀시트 닫기
   const handleDismiss = () => {
     setOpen(false);
@@ -57,17 +59,27 @@ function UserProfilePage() {
 
   // 지역선택
   useEffect(() => {
-    const fetchDistrict = async () => {
+    const fetchRegions = async () => {
       try {
         const response = await axiosInstance.get("/profile/metadata/district");
-        setRegions(response.data.data);
+        const data = response.data.data;
+        setRegions(data);
+        if (data.length > 0) {
+          setSelectedRegionId(data[0].regionId);
+        }
       } catch (error) {
         console.log("error", error);
       }
     };
-    fetchDistrict();
+    fetchRegions();
   }, []);
-  console.log(regions);
+
+  const selectDistricts =
+    regions.find((region) => region.regionId === selectedRegionId)?.districts ||
+    [];
+
+  console.log("regoins :", regions);
+  console.log("select :", selectedRegionId);
 
   return (
     <div className="inner">
@@ -343,46 +355,36 @@ function UserProfilePage() {
               <div className="district-wrap">
                 <div className="title">시/도</div>
                 <div className="btn-wrap main-btn">
-                  {regions.map((region, index) => (
-                    <button key={region.regionId}>{region.regionName}</button>
+                  {regions.map((region) => (
+                    <button
+                      className={`region-btn ${
+                        selectedRegionId === region.regionId ? "active" : ""
+                      }`}
+                      key={region.regionId}
+                      onClick={() => setSelectedRegionId(region.regionId)}
+                    >
+                      {region.regionName}
+                    </button>
                   ))}
                 </div>
-                {/* <div className="btn-wrap main-btn">
-                  <button className="active">전체</button>
-                  <button>강원</button>
-                  <button>경기</button>
-                  <button>경남</button>
-                  <button>경북</button>
-                  <button>서울</button>
-                  <button>전남</button>
-                  <button>전북</button>
-                  <button>제주</button>
-                  <button>충남</button>
-                  <button>충남</button>
-                </div> */}
               </div>
               <div className="district-wrap">
                 <div className="title">상세지역</div>
                 <div className="btn-wrap sub-btn">
-                  <button className="active">전체</button>
-                  <button>강남구</button>
-                  <button>강동구</button>
-                  <button>강북구</button>
-                  <button>강서구</button>
-                  <button>관악구</button>
-                  <button>광진구</button>
-                  <button>구로구</button>
-                  <button>금천구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
-                  <button>노원구</button>
+                  {selectDistricts.map((district) => (
+                    <button
+                      key={district.districtId}
+                      onClick={() => setSelectedDistrictId(district.districtId)}
+                      className={
+                        selectedDistrictId === district.districtId
+                          ? "active"
+                          : ""
+                      }
+                    >
+                      {district.districtName}
+                    </button>
+                  ))}
+                  {/* <button className="active">전체</button> */}
                 </div>
               </div>
             </div>

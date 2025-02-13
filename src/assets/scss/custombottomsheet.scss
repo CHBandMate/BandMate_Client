@@ -5,6 +5,7 @@
 }
 
 .bottom-sheet-body {
+  min-height: 900px;
   padding: 20px 60px;
   max-width: 500px;
   overflow: hidden;
@@ -57,9 +58,9 @@
     width: 100%;
     font-size: 18px;
     font-weight: 600;
-    background-color: #5ea3ff;
     color: #fff;
-    &.visible {
+    background-color: #5ea3ff;
+    &.active {
       color: #444;
       background-color: #e8e8e8;
     }
