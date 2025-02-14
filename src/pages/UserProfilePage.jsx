@@ -17,7 +17,7 @@ function UserProfilePage() {
   const [isAvailable, setIsAvailable] = useState(null);
   // bottom sheet 반응성
   const [open, setOpen] = useState(false);
-  // 지역 데이터
+  // 지역 데이터 상태
   const [regions, setRegions] = useState([]);
   const [selectedRegionId, setSelectedRegionId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
@@ -77,9 +77,6 @@ function UserProfilePage() {
   const selectDistricts =
     regions.find((region) => region.regionId === selectedRegionId)?.districts ||
     [];
-
-  console.log("regoins :", regions);
-  console.log("select :", selectedRegionId);
 
   return (
     <div className="inner">
