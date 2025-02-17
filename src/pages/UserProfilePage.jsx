@@ -19,6 +19,7 @@ function UserProfilePage() {
   const [open, setOpen] = useState(false);
   // 지역 데이터 상태
   const [regions, setRegions] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
   const [selectedRegionId, setSelectedRegionId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   // 배경 클릭시 바텀시트 닫기
@@ -40,15 +41,39 @@ function UserProfilePage() {
   const duplicatedNkCheck = async () => {
     if (!formState.nickName.trim()) return; // 빈 값 체크
     setIsChecking(true);
+    setIsAvailable(null);
     try {
       const response = await axiosInstance.get("/user/profile/check-nickname", {
         params: { nickname: formState.nickName },
       });
-      setIsAvailable(response.data); // 데이터 확인 후 상태 업데이트
+      setIsAvailable(response.data.data); // 데이터 확인 후 상태 업데이트
     } catch (error) {
       console.error("Error checking nickname:", error);
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
+  };
+  // 지역 선택 추가
+  const handleDistrict = () => {
+    if (selectedRegionId && selectedDistrictId) {
+      const region = regions.find((r) => r.regionId === selectedRegionId);
+      const district = region?.districts.find(
+        (d) => d.districtId === selectedDistrictId
+      );
+      if (region && district) {
+        setSelectedRegions((prev) => [
+          ...prev,
+          {
+            regionName: region.regionName,
+            districtName: district.districtName,
+          },
+        ]);
+      }
+    }
+    setOpen(false);
+  };
+  // 지역 선택 삭제
+  const removeRegion = (index) => {
+    setSelectedRegions((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = () => {
@@ -254,18 +279,22 @@ function UserProfilePage() {
             </div>
           </div>
           <div className="hash-group">
-            <div className="hash-tag">
+            {/* <div className="hash-tag">
               <button>
                 서울시 금천구
                 <span className="ico">삭제</span>
               </button>
-            </div>
-            <div className="hash-tag">
-              <button>
-                안양시 동안구
-                <span className="ico">삭제</span>
-              </button>
-            </div>
+            </div> */}
+            {selectedRegions.map((region, index) => (
+              <div className="hash-tag" key={index}>
+                <button>
+                  {region.regionName} {region.districtName}
+                  <span className="ico" onClick={() => removeRegion(index)}>
+                    삭제
+                  </span>
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="from-group">
@@ -387,7 +416,7 @@ function UserProfilePage() {
             </div>
           </div>
           <div className="bottom">
-            <button onClick={handleDismiss}>확인</button>
+            <button onClick={handleDistrict}>확인</button>
           </div>
         </BottomSheet>
       </div>
