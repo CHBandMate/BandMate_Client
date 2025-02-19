@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { BottomSheet } from "react-spring-bottom-sheet";
 // import "../assets/scss/bottomsheet.scss";
+import PopupWindow from "../components/PopupWindow";
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -11,6 +12,7 @@ function UserProfilePage() {
     email: "",
     introduction: "",
   });
+  // 중복확인
   const isNickValid = formState.nickName.trim() !== "";
   const isEmailValid = formState.email.trim() !== "";
   const [isChecking, setIsChecking] = useState(false);
@@ -22,6 +24,10 @@ function UserProfilePage() {
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [selectedRegionId, setSelectedRegionId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
+  // 팝업 상태
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopup2Open, setIsPopup2Open] = useState(false);
+
   // 배경 클릭시 바텀시트 닫기
   const handleDismiss = () => {
     setOpen(false);
@@ -38,7 +44,7 @@ function UserProfilePage() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
   // 중복 닉네임 확인
-  const duplicatedNkCheck = async () => {
+  const checkNickname = async () => {
     if (!formState.nickName.trim()) return; // 빈 값 체크
     setIsChecking(true);
     setIsAvailable(null);
@@ -52,22 +58,25 @@ function UserProfilePage() {
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
   };
+  const selectDistricts =
+    regions.find((region) => region.regionId === selectedRegionId)?.districts ||
+    [];
   // 지역 선택 추가
-  const handleDistrict = () => {
-    if (selectedRegionId && selectedDistrictId) {
-      const region = regions.find((r) => r.regionId === selectedRegionId);
-      const district = region?.districts.find(
-        (d) => d.districtId === selectedDistrictId
-      );
-      if (region && district) {
-        setSelectedRegions((prev) => [
-          ...prev,
-          {
-            regionName: region.regionName,
-            districtName: district.districtName,
-          },
-        ]);
-      }
+  const addSelectedRegion = () => {
+    const selectedRegion = regions.find(
+      (region) => region.regionId === selectedRegionId
+    );
+    const selectedDistrict = selectDistricts.find(
+      (district) => district.districtId === selectedDistrictId
+    );
+    if (selectedRegion && selectedDistrict) {
+      setSelectedRegions((prev) => [
+        ...prev,
+        {
+          regionName: selectedRegion.regionName,
+          districtName: selectedDistrict.districtName,
+        },
+      ]);
     }
     setOpen(false);
   };
@@ -99,10 +108,6 @@ function UserProfilePage() {
     fetchRegions();
   }, []);
 
-  const selectDistricts =
-    regions.find((region) => region.regionId === selectedRegionId)?.districts ||
-    [];
-
   return (
     <div className="inner">
       <div className="profilepage">
@@ -129,7 +134,7 @@ function UserProfilePage() {
             </div>
             <div className="btn-check">
               <button
-                onClick={duplicatedNkCheck}
+                onClick={checkNickname}
                 className={`${isNickValid ? "" : "disabled"}`}
                 disabled={!isNickValid}
               >
@@ -279,12 +284,6 @@ function UserProfilePage() {
             </div>
           </div>
           <div className="hash-group">
-            {/* <div className="hash-tag">
-              <button>
-                서울시 금천구
-                <span className="ico">삭제</span>
-              </button>
-            </div> */}
             {selectedRegions.map((region, index) => (
               <div className="hash-tag" key={index}>
                 <button>
@@ -416,7 +415,7 @@ function UserProfilePage() {
             </div>
           </div>
           <div className="bottom">
-            <button onClick={handleDistrict}>확인</button>
+            <button onClick={addSelectedRegion}>확인</button>
           </div>
         </BottomSheet>
       </div>
