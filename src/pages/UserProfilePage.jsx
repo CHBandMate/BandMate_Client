@@ -194,9 +194,14 @@ function UserProfilePage() {
               />
             </div>
             <div className="btn-add">
-              <button>+</button>
+              <button onClick={() => setIsPopupOpen(true)}>+</button>
             </div>
           </div>
+          {isPopupOpen && (
+            <PopupWindow onCloes={() => setIsPopupOpen(false)}>
+              <h1>first popup</h1>
+            </PopupWindow>
+          )}
           <div className="hash-group">
             <div className="hash-tag">
               <button>

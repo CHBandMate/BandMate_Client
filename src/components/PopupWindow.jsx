@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 
-const PopupWindow = ({ onCloes, children }) => {
+const PopupWindow = ({ onCloes, children, width = 420, height = 600 }) => {
   const popupRef = useRef(null);
 
   useEffect(() => {
     popupRef.current = window.open(
       "",
       "_black",
-      "width=600, height=400,left=200,top=200"
+      `width=${width}, height=${height},left=200,top=200`
     );
 
     if (popupRef.current) {
