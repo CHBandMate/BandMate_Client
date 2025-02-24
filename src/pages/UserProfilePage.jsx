@@ -198,7 +198,7 @@ function UserProfilePage() {
             </div>
           </div>
           {isPopupOpen && (
-            <PopupWindow onCloes={() => setIsPopupOpen(false)}>
+            <PopupWindow onClose={() => setIsPopupOpen(false)}>
               <h1>first popup</h1>
             </PopupWindow>
           )}
