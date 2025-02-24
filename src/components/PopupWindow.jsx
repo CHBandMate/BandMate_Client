@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
+import ReactDOM from "react-dom/client";
 
-const PopupWindow = ({ onCloes, children }) => {
+const PopupWindow = ({ onClose, children, width = 420, height = 600 }) => {
   const popupRef = useRef(null);
 
   useEffect(() => {
     popupRef.current = window.open(
       "",
-      "_black",
-      "width=600, height=400,left=200,top=200"
+      "_blank",
+      `width=${width}, height=${height},left=200,top=200`
     );
 
     if (popupRef.current) {
@@ -24,17 +25,23 @@ const PopupWindow = ({ onCloes, children }) => {
       popupRef.current.document.close();
 
       const popupRoot = popupRef.current.document.getElementById("popup-root");
-      ReactDOM.createRoot(popupRoot).render(children);
+
+      if (popupRoot) {
+        ReactDOM.createRoot(popupRoot).render(children);
+      }
     }
+
     const handleUnload = () => {
       onClose();
     };
+
     popupRef.current.addEventListener("beforeunload", handleUnload);
+
     return () => {
       popupRef.current.removeEventListener("beforeunload", handleUnload);
-      popupRef.current.cloes();
+      popupRef.current.close(); // 오타 수정: cloes -> close
     };
-  });
+  }, [onClose, children, width, height]);
 
   return null;
 };
