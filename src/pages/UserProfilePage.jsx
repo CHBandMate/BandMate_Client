@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { BottomSheet } from "react-spring-bottom-sheet";
-// import "../assets/scss/bottomsheet.scss";
 import PopupWindow from "../components/PopupWindow";
 
 function UserProfilePage() {
@@ -24,9 +23,11 @@ function UserProfilePage() {
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [selectedRegionId, setSelectedRegionId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
+  // 포지션 데이터 상태
+  const [positions, setPositions] = useState([]);
+  const [selectedPosition, setSelectedPosition] = useState(null);
   // 팝업 상태
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isPopup2Open, setIsPopup2Open] = useState(false);
 
   // 배경 클릭시 바텀시트 닫기
   const handleDismiss = () => {
@@ -108,6 +109,20 @@ function UserProfilePage() {
     fetchRegions();
   }, []);
 
+  // 포지션 선택 추가
+  useEffect(() => {
+    const fetchPosition = async () => {
+      try {
+        const response = await axiosInstance.get("/profile/metadata");
+        const data = response.data.data.position;
+        setPositions(data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchPosition();
+  }, []);
+
   return (
     <div className="inner">
       <div className="profilepage">
@@ -152,36 +167,13 @@ function UserProfilePage() {
           <div className="checkbox-group">
             <span className="label-name">포지션</span>
             <div className="checkbox-wrap">
-              <div className="check-box">
-                <input type="checkbox" id="guitar" />
-                <span className="checkmark"></span>
-                <label htmlFor="guitar">기타</label>
-              </div>
-              <div className="check-box">
-                <input type="checkbox" id="base" />
-                <span className="checkmark"></span>
-                <label htmlFor="base">베이스</label>
-              </div>
-              <div className="check-box">
-                <input type="checkbox" id="drum" />
-                <span className="checkmark"></span>
-                <label htmlFor="drum">드럼</label>
-              </div>
-              <div className="check-box">
-                <input type="checkbox" id="keyboard" />
-                <span className="checkmark"></span>
-                <label htmlFor="keyboard">키보드</label>
-              </div>
-              <div className="check-box">
-                <input type="checkbox" id="vocal" />
-                <span className="checkmark"></span>
-                <label htmlFor="vocal">보컬</label>
-              </div>
-              <div className="check-box">
-                <input type="checkbox" id="etc" />
-                <span className="checkmark"></span>
-                <label htmlFor="etc">그 외</label>
-              </div>
+              {positions.map((position) => (
+                <div className="check-box" key={position.key}>
+                  <input type="checkbox" id={position.key} />
+                  <span className="checkmark"></span>
+                  <label htmlFor={position.key}>{position.value}</label>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -194,14 +186,14 @@ function UserProfilePage() {
               />
             </div>
             <div className="btn-add">
-              <button onClick={() => setIsPopupOpen(true)}>+</button>
+              <button>+</button>
             </div>
           </div>
-          {isPopupOpen && (
+          {/* {isPopupOpen && (
             <PopupWindow onClose={() => setIsPopupOpen(false)}>
               <h1>first popup</h1>
             </PopupWindow>
-          )}
+          )} */}
           <div className="hash-group">
             <div className="hash-tag">
               <button>
