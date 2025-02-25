@@ -15,7 +15,7 @@ const PopupWindow = ({ onClose, children, width = 420, height = 600 }) => {
       popupRef.current.document.write(`
         <html>
             <head>
-                <title>팝업</title>
+              <title>팝업</title>
             </head>
             <body>
                 <div id="popup-root"></div>
