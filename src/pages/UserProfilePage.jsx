@@ -10,6 +10,10 @@ function UserProfilePage() {
     kakaoId: "",
     email: "",
     introduction: "",
+    instrument: [], // 악기 목록
+    effect: [], // 이펙터 목록
+    newInstrument: "", // 악기 입력값
+    newEffect: "", // 이펙터 입력값
   });
   // 중복확인
   const isNickValid = formState.nickName.trim() !== "";
@@ -25,7 +29,6 @@ function UserProfilePage() {
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   // 포지션 데이터 상태
   const [positions, setPositions] = useState([]);
-  const [selectedPosition, setSelectedPosition] = useState(null);
   // 팝업 상태
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -90,6 +93,27 @@ function UserProfilePage() {
     if (isFormValid) {
       console.log("회원 정보 등록");
     }
+  };
+
+  // 악기, 이펙터 입력값 변경 핸들러
+  const handleInputChange = (e, field) => {
+    setFormState({ ...formState, [field]: e.target.value });
+  };
+  // 아이템 추가 핸들러
+  const handleAddHash = (field, newItemField) => {
+    if (!formState[newItemField]?.trim()) return; // 빈 값 방지
+    setFormState({
+      ...formState,
+      [field]: [...formState[field], formState[newItemField]], // 리스트에 추가
+      [newItemField]: "", // 입력 필드 초기화
+    });
+  };
+  // 아이템 삭제 핸들러 (악기/이펙터 공통)
+  const handleRemoveItem = (field, item) => {
+    setFormState({
+      ...formState,
+      [field]: formState[field].filter((i) => i !== item), // 선택한 항목 제거
+    });
   };
 
   // 지역선택
@@ -183,30 +207,32 @@ function UserProfilePage() {
               <input
                 type="text"
                 placeholder="보유하고 있는 악기를 입력하세요."
+                value={formState.newInstrument}
+                onChange={(e) => handleInputChange(e, "newInstrument")}
               />
             </div>
             <div className="btn-add">
-              <button>+</button>
+              <button
+                onClick={() => handleAddHash("instrument", "newInstrument")}
+              >
+                +
+              </button>
             </div>
           </div>
-          {/* {isPopupOpen && (
-            <PopupWindow onClose={() => setIsPopupOpen(false)}>
-              <h1>first popup</h1>
-            </PopupWindow>
-          )} */}
           <div className="hash-group">
-            <div className="hash-tag">
-              <button>
-                베이스1
-                <span className="ico">삭제</span>
-              </button>
-            </div>
-            <div className="hash-tag">
-              <button>
-                베이스2
-                <span className="ico">삭제</span>
-              </button>
-            </div>
+            {formState.instrument.map((item, index) => (
+              <div className="hash-tag" key={index}>
+                <button>
+                  {item}
+                  <span
+                    className="ico"
+                    onClick={() => handleRemoveItem("instrument", item)}
+                  >
+                    삭제
+                  </span>
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="from-group">
@@ -215,25 +241,30 @@ function UserProfilePage() {
               <input
                 type="text"
                 placeholder="보유하고 있는 이펙터를 입력하세요"
+                value={formState.newEffect}
+                onChange={(e) => handleInputChange(e, "newEffect")}
               />
             </div>
             <div className="btn-add">
-              <button>+</button>
+              <button onClick={() => handleAddHash("effect", "newEffect")}>
+                +
+              </button>
             </div>
           </div>
           <div className="hash-group">
-            <div className="hash-tag">
-              <button>
-                이펙터1
-                <span className="ico">삭제</span>
-              </button>
-            </div>
-            <div className="hash-tag">
-              <button>
-                이펙터2
-                <span className="ico">삭제</span>
-              </button>
-            </div>
+            {formState.effect.map((item, index) => (
+              <div className="hash-tag" key={index}>
+                <button>
+                  {item}
+                  <span
+                    className="ico"
+                    onClick={() => handleRemoveItem("effect", item)}
+                  >
+                    삭제
+                  </span>
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="from-group">
@@ -340,7 +371,9 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="selc-wrap">
               <span className="label-name">선호 장르</span>
-              <button className="selc-btn">선택</button>
+              <button className="selc-btn" onClick={() => setIsPopupOpen(true)}>
+                선택
+              </button>
             </div>
           </div>
           <div className="hash-group">
@@ -357,7 +390,11 @@ function UserProfilePage() {
               </button>
             </div>
           </div>
-
+          {isPopupOpen && (
+            <PopupWindow onClose={() => setIsPopupOpen(false)}>
+              <h1>first popup</h1>
+            </PopupWindow>
+          )}
           <div className="btn-wrap">
             <button
               className={`${isFormValid ? "" : "disabled"}`}
