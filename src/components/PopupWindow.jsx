@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import ReactDOM from "react-dom/client";
-import "../assets/scss/popup.scss";
 
 const PopupWindow = ({ onClose, children, width = 420, height = 600 }) => {
   const popupRef = useRef(null);
@@ -16,7 +15,7 @@ const PopupWindow = ({ onClose, children, width = 420, height = 600 }) => {
       popupRef.current.document.write(`
         <html>
             <head>
-                <title>팝업</title>
+              <title>팝업</title>
             </head>
             <body>
                 <div id="popup-root"></div>

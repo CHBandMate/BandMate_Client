@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import PopupWindow from "../components/PopupWindow";
+// import "../assets/scss/popup.scss";
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -62,6 +63,8 @@ function UserProfilePage() {
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
   };
+  // 중복 이메일 확인 아직 api없음
+  // 지역 선택
   const selectDistricts =
     regions.find((region) => region.regionId === selectedRegionId)?.districts ||
     [];
@@ -300,6 +303,12 @@ function UserProfilePage() {
               </button>
             </div>
           </div>
+          {/* {isAvailable === false && (
+            <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
+          )} api 없음 이슈
+          {isAvailable === true && (
+            <span className="success-msg">사용 가능한 닉네임입니다.</span>
+          )} */}
           <span className="error-msg">이미 사용중인 이메일 입니다.</span>
 
           <div className="from-group">
