@@ -15,7 +15,7 @@ const PopupWindow = ({ onClose, children, width = 420, height = 600 }) => {
       popupRef.current.document.write(`
         <html>
             <head>
-                <title>팝업</title>
+              <title>팝업</title>
             </head>
             <body>
                 <div id="popup-root"></div>
@@ -39,7 +39,7 @@ const PopupWindow = ({ onClose, children, width = 420, height = 600 }) => {
 
     return () => {
       popupRef.current.removeEventListener("beforeunload", handleUnload);
-      popupRef.current.close(); // 오타 수정: cloes -> close
+      popupRef.current.close();
     };
   }, [onClose, children, width, height]);
 

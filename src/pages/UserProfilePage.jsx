@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import PopupWindow from "../components/PopupWindow";
+import Select from "react-select/base";
+
+const options = [
+  { value: "test1", label: "test1" },
+  { value: "test2", label: "test2" },
+  { value: "test3", label: "test3" },
+];
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -10,6 +17,10 @@ function UserProfilePage() {
     kakaoId: "",
     email: "",
     introduction: "",
+    instrument: [], // 악기 목록
+    effect: [], // 이펙터 목록
+    newInstrument: "", // 악기 입력값
+    newEffect: "", // 이펙터 입력값
   });
   // 중복확인
   const isNickValid = formState.nickName.trim() !== "";
@@ -25,9 +36,8 @@ function UserProfilePage() {
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   // 포지션 데이터 상태
   const [positions, setPositions] = useState([]);
-  const [selectedPosition, setSelectedPosition] = useState(null);
-  // 팝업 상태
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  // select 데이터 상태
+  const [selected, setSelected] = useState(null);
 
   // 배경 클릭시 바텀시트 닫기
   const handleDismiss = () => {
@@ -59,6 +69,8 @@ function UserProfilePage() {
       setIsAvailable(false); // 에러 발생 시 false 처리
     }
   };
+  // 중복 이메일 확인 아직 api없음
+  // 지역 선택
   const selectDistricts =
     regions.find((region) => region.regionId === selectedRegionId)?.districts ||
     [];
@@ -90,6 +102,27 @@ function UserProfilePage() {
     if (isFormValid) {
       console.log("회원 정보 등록");
     }
+  };
+
+  // 악기, 이펙터 입력값 변경 핸들러
+  const handleInputChange = (e, field) => {
+    setFormState({ ...formState, [field]: e.target.value });
+  };
+  // 아이템 추가 핸들러
+  const handleAddHash = (field, newItemField) => {
+    if (!formState[newItemField]?.trim()) return; // 빈 값 방지
+    setFormState({
+      ...formState,
+      [field]: [...formState[field], formState[newItemField]], // 리스트에 추가
+      [newItemField]: "", // 입력 필드 초기화
+    });
+  };
+  // 아이템 삭제 핸들러 (악기/이펙터 공통)
+  const handleRemoveItem = (field, item) => {
+    setFormState({
+      ...formState,
+      [field]: formState[field].filter((i) => i !== item), // 선택한 항목 제거
+    });
   };
 
   // 지역선택
@@ -183,30 +216,32 @@ function UserProfilePage() {
               <input
                 type="text"
                 placeholder="보유하고 있는 악기를 입력하세요."
+                value={formState.newInstrument}
+                onChange={(e) => handleInputChange(e, "newInstrument")}
               />
             </div>
             <div className="btn-add">
-              <button>+</button>
+              <button
+                onClick={() => handleAddHash("instrument", "newInstrument")}
+              >
+                +
+              </button>
             </div>
           </div>
-          {/* {isPopupOpen && (
-            <PopupWindow onClose={() => setIsPopupOpen(false)}>
-              <h1>first popup</h1>
-            </PopupWindow>
-          )} */}
           <div className="hash-group">
-            <div className="hash-tag">
-              <button>
-                베이스1
-                <span className="ico">삭제</span>
-              </button>
-            </div>
-            <div className="hash-tag">
-              <button>
-                베이스2
-                <span className="ico">삭제</span>
-              </button>
-            </div>
+            {formState.instrument.map((item, index) => (
+              <div className="hash-tag" key={index}>
+                <button>
+                  {item}
+                  <span
+                    className="ico"
+                    onClick={() => handleRemoveItem("instrument", item)}
+                  >
+                    삭제
+                  </span>
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="from-group">
@@ -215,25 +250,30 @@ function UserProfilePage() {
               <input
                 type="text"
                 placeholder="보유하고 있는 이펙터를 입력하세요"
+                value={formState.newEffect}
+                onChange={(e) => handleInputChange(e, "newEffect")}
               />
             </div>
             <div className="btn-add">
-              <button>+</button>
+              <button onClick={() => handleAddHash("effect", "newEffect")}>
+                +
+              </button>
             </div>
           </div>
           <div className="hash-group">
-            <div className="hash-tag">
-              <button>
-                이펙터1
-                <span className="ico">삭제</span>
-              </button>
-            </div>
-            <div className="hash-tag">
-              <button>
-                이펙터2
-                <span className="ico">삭제</span>
-              </button>
-            </div>
+            {formState.effect.map((item, index) => (
+              <div className="hash-tag" key={index}>
+                <button>
+                  {item}
+                  <span
+                    className="ico"
+                    onClick={() => handleRemoveItem("effect", item)}
+                  >
+                    삭제
+                  </span>
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="from-group">
@@ -269,6 +309,12 @@ function UserProfilePage() {
               </button>
             </div>
           </div>
+          {/* {isAvailable === false && (
+            <span className="error-msg">이미 사용중인 닉네임 입니다.</span>
+          )} api 없음 이슈
+          {isAvailable === true && (
+            <span className="success-msg">사용 가능한 닉네임입니다.</span>
+          )} */}
           <span className="error-msg">이미 사용중인 이메일 입니다.</span>
 
           <div className="from-group">
@@ -340,7 +386,12 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="selc-wrap">
               <span className="label-name">선호 장르</span>
-              <button className="selc-btn">선택</button>
+              <Select
+                options={options}
+                value={selected}
+                onChange={setSelected}
+                placeholder="선택하세요"
+              />
             </div>
           </div>
           <div className="hash-group">
