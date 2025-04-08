@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import PopupWindow from "../components/PopupWindow";
-// import "../assets/scss/popup.scss";
+import Select from "react-select/base";
+
+const options = [
+  { value: "test1", label: "test1" },
+  { value: "test2", label: "test2" },
+  { value: "test3", label: "test3" },
+];
 
 function UserProfilePage() {
   // 입력 값 관리
@@ -30,8 +36,8 @@ function UserProfilePage() {
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   // 포지션 데이터 상태
   const [positions, setPositions] = useState([]);
-  // 팝업 상태
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  // select 데이터 상태
+  const [selected, setSelected] = useState(null);
 
   // 배경 클릭시 바텀시트 닫기
   const handleDismiss = () => {
@@ -380,9 +386,12 @@ function UserProfilePage() {
           <div className="from-group">
             <div className="selc-wrap">
               <span className="label-name">선호 장르</span>
-              <button className="selc-btn" onClick={() => setIsPopupOpen(true)}>
-                선택
-              </button>
+              <Select
+                options={options}
+                value={selected}
+                onChange={setSelected}
+                placeholder="선택하세요"
+              />
             </div>
           </div>
           <div className="hash-group">
@@ -399,11 +408,7 @@ function UserProfilePage() {
               </button>
             </div>
           </div>
-          {isPopupOpen && (
-            <PopupWindow onClose={() => setIsPopupOpen(false)}>
-              <h1>first popup</h1>
-            </PopupWindow>
-          )}
+
           <div className="btn-wrap">
             <button
               className={`${isFormValid ? "" : "disabled"}`}
